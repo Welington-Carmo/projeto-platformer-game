@@ -187,9 +187,16 @@ def update():
 
     player.centerx = hitbox.centerx
 
+    if keyboard.up and on_ground:
+        vel_y = jump_force
+        on_ground = False
+        sounds.jump.play()
+        can_play_jump_sound = False
+        clock.schedule_unique(allow_sound, 0.25)
+
     vel_y += gravity
+
     hitbox.y += vel_y
-    on_ground = False
 
     for platform in platforms:
         if hitbox.colliderect(platform):
@@ -201,17 +208,13 @@ def update():
                 hitbox.top = platform.bottom
                 vel_y = 0
 
+    player.bottom = hitbox.bottom
+
+
     if door and hitbox.colliderect(door):
         reset_game()
         win = True
         clock.schedule_unique(back_menu, 2)
-
-    if keyboard.up and on_ground:
-        vel_y = jump_force
-        on_ground = False
-        sounds.jump.play()
-        can_play_jump_sound = False
-        clock.schedule_unique(allow_sound, 0.25)
 
     player.bottom = hitbox.bottom
 
