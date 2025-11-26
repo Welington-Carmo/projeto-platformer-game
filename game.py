@@ -186,10 +186,6 @@ def update():
                 hitbox.left = platform.right
 
     player.centerx = hitbox.centerx
-
-    if on_ground and vel_y > 0:
-        vel_y = 0
-        on_ground = False
         
     if keyboard.up and on_ground:
         vel_y = jump_force
